@@ -1,9 +1,11 @@
+import 'package:elearning/pages/sign_in/sign_in.dart';
 import 'package:elearning/pages/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  // if you are using Riverpod always wrap the main root with the ProviderScope widget
+  runApp(ProviderScope(child: const MyApp()),);
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +35,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Welcome(),
+      initialRoute: "/", //this will be the initial route define it in routes map
+      //create a map of routes in the form "name":(context)=> PageName()" 
+      routes: {
+        "/":(context)=> Welcome(),
+        "signIn":(context) => SignIn(),
+      },
     );
   }
 }
