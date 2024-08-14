@@ -62,6 +62,7 @@ class Welcome extends ConsumerWidget {
                     title: "Connect with every one and learn",
                     subTitle:
                         "Be the first to chat with the lecturer and learn more of everything",
+                  text: "Get Started",
                   ),
                 ]),
               ),

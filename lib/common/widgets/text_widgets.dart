@@ -39,3 +39,21 @@ Widget text14Normal(
         fontWeight: FontWeight.normal),
   );
 }
+
+Widget textUnderline({String text="Forgot Password?"}){
+  return GestureDetector(
+    onTap: () {
+      
+    },
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 16,
+        color: AppColors.primaryText,
+        decoration: TextDecoration.underline,
+        decorationColor: AppColors.primaryText,
+        fontWeight: FontWeight.normal,
+      ),
+      ),
+  );
+}

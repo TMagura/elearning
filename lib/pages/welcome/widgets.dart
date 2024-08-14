@@ -9,6 +9,7 @@ Widget appOnboardingPage(
   String title = "",
   String subTitle = "",
   int index = 0,
+  String text="Next",
 }) {
   return Column(
     children: [
@@ -21,12 +22,12 @@ Widget appOnboardingPage(
         margin: const EdgeInsets.all(15),
         child: text16Normal(text: subTitle),
       ),
-      _nextButton(index, controller,context),
+      _nextButton(index, controller,context,text),
     ],
   );
 }
 
-Widget _nextButton(int index,PageController controller, BuildContext context) {
+Widget _nextButton(int index,PageController controller, BuildContext context,String text) {
   return GestureDetector(
     onTap: () {
       //the index will be checked and it jumps to next page
@@ -50,7 +51,7 @@ Widget _nextButton(int index,PageController controller, BuildContext context) {
       decoration: appBoxShadow(),
       child: Center(
         child: text16Normal(
-          text: "Next",
+          text: text,
           color: Colors.white,
         ),
       ),
