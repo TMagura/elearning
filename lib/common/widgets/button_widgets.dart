@@ -1,14 +1,23 @@
 import 'package:elearning/common/utils/app_colors.dart';
 import 'package:elearning/common/widgets/app_shadow.dart';
 import 'package:elearning/common/widgets/text_widgets.dart';
+import 'package:elearning/pages/Sign_up/sign_up.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget appButton({String buttonName = "Login", bool isLogin = true}) {
+Widget appButton({
+  BuildContext? context,
+  String buttonName = "Login", 
+  bool isLogin = true,
+  void Function()? func,
+  }) {
   return GestureDetector(
     onTap: () {
-      print("clicked register button");
-      Navigator.pushNamed(context,MaterialPageRoute(builder: builder))
+      if(func==null){
+        print("this handler is null");
+      }else{
+        func();
+      };
     },
     child: Container(
       width: 325,

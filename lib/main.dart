@@ -1,4 +1,5 @@
 import 'package:elearning/common/utils/app_styles.dart';
+import 'package:elearning/pages/Sign_up/sign_up.dart';
 import 'package:elearning/pages/sign_in/sign_in.dart';
 import 'package:elearning/pages/welcome/welcome.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/":(context)=> Welcome(),
         "signIn":(context) => SignIn(),
+        "register":(context) => SignUp(),
       },
     );
   }

@@ -1,3 +1,4 @@
+import 'package:elearning/common/widgets/app_bar.dart';
 import 'package:elearning/common/widgets/button_widgets.dart';
 import 'package:elearning/common/widgets/text_widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,7 +8,9 @@ import 'widgets/sign_in_widgets.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
-
+void handleRegister(){
+  
+}
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +18,7 @@ class SignIn extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: buildAppbar(),
+          appBar: buildAppbar(title: "Login"),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,18 +54,22 @@ class SignIn extends StatelessWidget {
                   child: textUnderline(text: "Forgot Password?"),
                 ),
                 const SizedBox(
-                  height: 100,
+                  height: 80,
                 ),
                 // App login button
                 Center(child: appButton(buttonName: "Login")),
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
                 //App register button
                 Center(
                   child: appButton(
                     buttonName: "Register",
                     isLogin: false,
+                    context: context,
+                    func:(){
+                      Navigator.pushNamed(context, "register");
+                     },
                   ),
                 ),
                 const SizedBox(
