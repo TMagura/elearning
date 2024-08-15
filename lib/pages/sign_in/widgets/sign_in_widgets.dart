@@ -58,6 +58,9 @@ Widget appTextField(
                 width: 280,
                 height: 40,
                 child: TextField(
+                  //used when you type
+                  onChanged:(value)=>func!(value),
+                  
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
                     hintText: hintText,
@@ -82,8 +85,6 @@ Widget appTextField(
                       ),
                     ),
                   ),
-                  //used when you type
-                  onChanged:(value)=>func!(value),
                   maxLines: 1,
                   autocorrect: false,
                   obscureText: obscureText,
