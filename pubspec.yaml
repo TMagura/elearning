@@ -29,14 +29,17 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   build_runner: ^2.4.9
+  cloud_firestore: 4.14.0
   cupertino_icons: ^1.0.2
   dots_indicator: ^3.0.0
   firebase_auth: 4.16.0
+  firebase_core: 2.24.2
   flutter:
     sdk: flutter
   flutter_riverpod: 2.4.10
   fluttertoast: 8.2.5
   riverpod_generator: 2.3.11
+  shared_preferences: 2.2.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

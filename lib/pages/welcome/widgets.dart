@@ -1,5 +1,7 @@
+import 'package:elearning/common/utils/constants.dart';
 import 'package:elearning/common/widgets/app_shadow.dart';
 import 'package:elearning/common/widgets/text_widgets.dart';
+import 'package:elearning/global.dart';
 import 'package:elearning/pages/sign_in/sign_in.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +39,8 @@ Widget _nextButton(int index,PageController controller, BuildContext context,Str
         duration: Duration(milliseconds: 300), 
         curve: Curves.linear);
       }else{
+        //save if app was once opened for the first time.
+        Global.storageService.setBool(AppConstants.STORAGE_DEVICE_OPEN_FIRST_KEY, true);
           Navigator.pushNamed(
               context,
               "signIn",

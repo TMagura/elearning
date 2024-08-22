@@ -5,8 +5,14 @@ import 'package:elearning/common/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
 
 Widget appTextField(
-  String text,
-    {String iconName = "", String hintText = "Type in your info",bool obscureText=false}) {
+  {String text="",
+  TextEditingController? controller,
+    String iconName = "", 
+    String hintText = "Type in your info",
+    bool obscureText=false,
+    void Function(String value)? func,
+    
+    }) {
   return Container(
     padding: EdgeInsets.only(left: 25, right: 25),
     child: Column(
@@ -28,6 +34,8 @@ Widget appTextField(
                 width: 280,
                 height: 40,
                 child: TextField(
+                  controller: controller,
+                  onChanged: (value)=>func!(value),
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
                     hintText: hintText,
@@ -52,8 +60,6 @@ Widget appTextField(
                       ),
                     ),
                   ),
-                  //used when you type
-                  onChanged: (value) {},
                   maxLines: 1,
                   autocorrect: false,
                   obscureText: obscureText,

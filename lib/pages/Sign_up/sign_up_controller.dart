@@ -37,10 +37,10 @@ class SignUpController{
       return;
     }
 
-    if(state.password.length<6 || state.rePassword.length<6){
-      toastInfo("Password is too short");
-      return;
-    }
+    // if(state.password.length<6 || state.rePassword.length<6){
+    //   toastInfo("Password is too short");
+    //   return;
+    // }
     if(state.password!=state.rePassword || password!=rePassword){
       toastInfo("Password does not match");
       return;
@@ -67,20 +67,24 @@ if (credential.user!=null) {
   toastInfo("An email was sent to your email. kindly verify");
   context.pop();
 }
+ //write firebase exception errors
+ } on FirebaseAuthException catch(e){
+   if (e.code =="weak-password") {
+     toastInfo("password is too weak");
+   }else if(e.code =="email-already-in-use"){
+    toastInfo("email already in use");
+   }
+   else if(e.code =="user-not-found"){
+    toastInfo("user not found");
+   }
+ }
 
-} catch (e) {
+catch (e) {
   if (kDebugMode) {
     print(e.toString());
   }
 }
  //show register page again
  ref.read(appLoaderProvider.notifier).setLoaderValue(false);
-
-
-
-
-
-
-
   }
 }

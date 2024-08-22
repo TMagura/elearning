@@ -32,7 +32,8 @@ Widget _loginButton(String imagePath) {
 
 Widget appTextField(
   String text,
-    {String iconName = "", 
+    {TextEditingController? controller,
+      String iconName = "", 
     String hintText = "Type in your info",
     bool obscureText=false,
     void Function(String value)? func
@@ -60,7 +61,7 @@ Widget appTextField(
                 child: TextField(
                   //used when you type
                   onChanged:(value)=>func!(value),
-                  
+                  controller: controller,
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
                     hintText: hintText,

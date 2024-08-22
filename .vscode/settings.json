@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "C:/MyProjects/Flutter/Elearning App/elearning/linux"
+    "cmake.sourceDirectory": "C:/MyProjects/Flutter/Elearning App/elearning/linux",
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

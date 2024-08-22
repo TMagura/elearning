@@ -1,7 +1,6 @@
 import 'package:elearning/common/utils/app_colors.dart';
 import 'package:elearning/common/widgets/app_shadow.dart';
 import 'package:elearning/common/widgets/text_widgets.dart';
-import 'package:elearning/pages/Sign_up/sign_up.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
