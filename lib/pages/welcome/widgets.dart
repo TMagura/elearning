@@ -5,6 +5,45 @@ import 'package:elearning/global.dart';
 import 'package:elearning/pages/sign_in/sign_in.dart';
 import 'package:flutter/material.dart';
 
+class AppOnboardingPage extends StatelessWidget {
+  final PageController controller; 
+  final BuildContext context;
+  final String imagePath;
+  final String title;
+  final String subTitle;
+  final int index ;
+  final String text;
+  AppOnboardingPage({super.key,
+   required this.context,
+   required this.controller,
+   required this.imagePath,
+   required this.index, 
+   required this.subTitle, 
+   required this.text, 
+   required this.title,
+   });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+    children: [
+      Image.asset(imagePath, fit: BoxFit.fitWidth),
+      Container(
+        margin: EdgeInsets.only(top: 15),
+        child: text24Normal(text: title),
+      ),
+      Container(
+        margin: const EdgeInsets.all(15),
+        child: Text16Normal(text: subTitle),
+      ),
+      _nextButton(index, controller,context,text),
+    ],
+  );
+  }
+}
+
+
+
 Widget appOnboardingPage(
   PageController controller, BuildContext context,
   {String imagePath = "assets/images/reading.png",
@@ -22,7 +61,7 @@ Widget appOnboardingPage(
       ),
       Container(
         margin: const EdgeInsets.all(15),
-        child: text16Normal(text: subTitle),
+        child: Text16Normal(text: subTitle),
       ),
       _nextButton(index, controller,context,text),
     ],
@@ -54,7 +93,7 @@ Widget _nextButton(int index,PageController controller, BuildContext context,Str
       margin: EdgeInsets.only(top: 100, left: 25, right: 25),
       decoration: appBoxShadow(),
       child: Center(
-        child: text16Normal(
+        child: Text16Normal(
           text: text,
           color: Colors.white,
         ),

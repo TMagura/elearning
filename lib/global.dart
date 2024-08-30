@@ -16,3 +16,7 @@ class Global{ //global class will have all the initialisations for the applicati
    storageService = await StorageService().init();
   }
 }
+
+
+// import 'package:riverpod_annotation/riverpod_annotation.dart';
+// flutter pub run build_runner watch --delete-conflicting-outputs

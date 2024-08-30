@@ -1,4 +1,4 @@
-import 'package:elearning/pages/sign_in/notifier/sign_in_state.dart';
+import 'package:elearning/pages/sign_in/provider/sign_in_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // we use the old way of creating Notifier

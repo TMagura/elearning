@@ -1,6 +1,7 @@
-import 'package:elearning/common/utils/global_loader/global_loader.dart';
+import 'package:elearning/common/global_loader/global_loader.dart';
 import 'package:elearning/common/widgets/popup_messages.dart';
-import 'package:elearning/pages/Sign_up/notifier/register_notifier.dart';
+import 'package:elearning/pages/Sign_up/provider/register_notifier.dart';
+import 'package:elearning/pages/Sign_up/repo/sign_up_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +54,7 @@ class SignUpController{
  var context = Navigator.of(ref.context); 
 
 try {
-  final credential = await FirebaseAuth
-  .instance
-  .createUserWithEmailAndPassword(email: email,password: password);
+ final credential = await SignUpRep.firebaseSignUp(email, password);
 if (kDebugMode) {
   print(credential);
 }

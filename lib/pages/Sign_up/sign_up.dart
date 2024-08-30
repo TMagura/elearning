@@ -1,10 +1,11 @@
+import 'package:elearning/common/global_loader/global_loader.dart';
 import 'package:elearning/common/utils/app_colors.dart';
-import 'package:elearning/common/utils/global_loader/global_loader.dart';
 import 'package:elearning/common/widgets/app_bar.dart';
+import 'package:elearning/common/widgets/app_textfields.dart';
 import 'package:elearning/common/widgets/button_widgets.dart';
 import 'package:elearning/common/widgets/text_widgets.dart';
-import 'package:elearning/pages/Sign_up/notifier/register_notifier.dart';
-import 'package:elearning/pages/Sign_up/sign_up_controller.dart';
+import 'package:elearning/pages/Sign_up/controller/sign_up_controller.dart';
+import 'package:elearning/pages/Sign_up/provider/register_notifier.dart';
 import 'package:elearning/pages/sign_in/widgets/sign_in_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ late SignUpController _controller;
                   height: 50,
                 ),
                 //Username textBox
-                appTextField("Username",
+                appTextField(text:"Username",
                     iconName: "assets/icons/user.png",
                     hintText: "Type in your username",
                     obscureText: false,
@@ -62,7 +63,7 @@ late SignUpController _controller;
                   height: 30,
                 ),
                 //email textbox
-                appTextField("Email",
+                appTextField(text:"Email",
                     iconName: "assets/icons/user.png",
                     hintText: "Type in your email @mail.com",
                     obscureText: false,
@@ -72,7 +73,7 @@ late SignUpController _controller;
                   height: 30,
                 ),
                 //password textbox
-                appTextField("Password",
+                appTextField(text:"Password",
                     iconName: "assets/icons/lock.png",
                     hintText: "Type in your 8 character password",
                     obscureText: true,
@@ -82,7 +83,7 @@ late SignUpController _controller;
                   height: 15,
                 ),
                 //confirm password textbox
-                appTextField("Confirm Password",
+                appTextField(text:"Confirm Password",
                     iconName: "assets/icons/lock.png",
                     hintText: "Confirm your password",
                     obscureText: true, 

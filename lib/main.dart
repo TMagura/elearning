@@ -1,10 +1,6 @@
 import 'package:elearning/common/utils/app_styles.dart';
-import 'package:elearning/common/utils/routes/routes.dart';
+import 'package:elearning/common/routes/routes.dart';
 import 'package:elearning/global.dart';
-import 'package:elearning/pages/Sign_up/sign_up.dart';
-import 'package:elearning/pages/application/application.dart';
-import 'package:elearning/pages/sign_in/sign_in.dart';
-import 'package:elearning/pages/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,7 +9,8 @@ Future<void> main() async {
   // if you are using Riverpod always wrap the main root with the ProviderScope widget
   runApp(const ProviderScope(child:MyApp()),);
 }
-
+//navigation will be done and it will have the ref object that allow us to use context without passing it around 
+final GlobalKey<NavigatorState> navKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -21,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navKey,
       title: 'Elearning',
       theme: AppTheme.appThemeData,
       initialRoute: "/", //this will be the initial route define it in routes map

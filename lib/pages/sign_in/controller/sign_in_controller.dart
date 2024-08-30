@@ -1,23 +1,26 @@
-import 'package:elearning/common/entities/user.dart';
+import 'dart:convert';
+
+import 'package:elearning/common/model/user.dart';
+import 'package:elearning/common/global_loader/global_loader.dart';
 import 'package:elearning/common/utils/constants.dart';
-import 'package:elearning/common/utils/global_loader/global_loader.dart';
 import 'package:elearning/common/widgets/popup_messages.dart';
 import 'package:elearning/global.dart';
-import 'package:elearning/pages/application/application.dart';
-import 'package:elearning/pages/sign_in/notifier/sign_in_notifier.dart';
+import 'package:elearning/main.dart';
+import 'package:elearning/pages/sign_in/provider/sign_in_notifier.dart';
+import 'package:elearning/pages/sign_in/repo/sign_in_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignInController {
-  WidgetRef ref;
-  SignInController(this.ref);
+  // WidgetRef ref;
+  SignInController();
 
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<void> handleSignIn() async {
+  Future<void> handleSignIn(WidgetRef ref) async {
     var state = ref.read(signInNotifierProvider);
     String email = state.email;
     String password = state.password;
@@ -38,8 +41,7 @@ class SignInController {
     }
     ref.read(appLoaderProvider.notifier).setLoaderValue(true);
     try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      final credential = await SignInRepo.firebaseSignIn(email, password);
 
       if (credential.user == null) {
         toastInfo("User is not found");
@@ -74,6 +76,8 @@ class SignInController {
         toastInfo("username and password do not match");
       } else if (e.code == "wrong-password") {
         toastInfo("Your entered a wrong pawword");
+      } else if (e.code == "network-request-failed"){
+         toastInfo("No internet connection");
       }
       print(e.code);
     } catch (e) {
@@ -89,13 +93,15 @@ class SignInController {
 
     //save data in local storage (use shared_preferences)
     try {
-      var navigator = Navigator.of(ref.context);
+      // var navigator = Navigator.of(ref.context);
       Global.storageService
-          .setString(AppConstants.STORAGE_USER_PROFILE_KEY, "123");
+          .setString(AppConstants.STORAGE_USER_PROFILE_KEY, jsonEncode({
+            'name':"Tee", 'email':'a@mailinator.com','age':27
+          }));
       Global.storageService
           .setString(AppConstants.STORAGE_USER_TOKEN_KEY, "123456");
       //redirect to another page
-      navigator.pushNamedAndRemoveUntil("application",(route)=>false);
+      navKey.currentState?.pushNamedAndRemoveUntil("application",(route)=>false);
       
     } catch (e) {
       if (kDebugMode) {

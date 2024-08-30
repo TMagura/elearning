@@ -1,4 +1,5 @@
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:elearning/common/utils/image_res.dart';
 import 'package:elearning/pages/welcome/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,11 +37,13 @@ class Welcome extends ConsumerWidget {
                     ref.read(indexDotProvider.notifier).changeIndex(value);
                   },
                   controller: _controller, children: [
-                  //first page
-                  appOnboardingPage(
-                    _controller,context,
+                  //first page : we can use stateless widget classes of function methods
+                  AppOnboardingPage(
+                    text: "me",
+                    context: context,
+                    controller:_controller,
                     index: 1,
-                    imagePath: "assets/images/reading.png",
+                    imagePath: ImageRes.reading,
                     title: "Welcome to eLearning",
                     subTitle:
                         "Be happy you are in the right place at the the riht time t learn for free",
@@ -49,7 +52,7 @@ class Welcome extends ConsumerWidget {
                   appOnboardingPage(
                     _controller,context,
                     index: 2,
-                    imagePath: "assets/images/man.png",
+                    imagePath: ImageRes.man,
                     title: "Learning and be the master",
                     subTitle:
                         "im so glad  to be here and eyy Be happy you are in the right place at the right time to learn for free",
@@ -58,7 +61,7 @@ class Welcome extends ConsumerWidget {
                   appOnboardingPage(
                     _controller,context,
                     index: 3,
-                    imagePath: "assets/images/boy.png",
+                    imagePath: ImageRes.boy,
                     title: "Connect with every one and learn",
                     subTitle:
                         "Be the first to chat with the lecturer and learn more of everything",
