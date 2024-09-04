@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:elearning/common/model/user.dart';
 import 'package:elearning/common/global_loader/global_loader.dart';
+import 'package:elearning/common/services/http_util.dart';
 import 'package:elearning/common/utils/constants.dart';
 import 'package:elearning/common/widgets/popup_messages.dart';
 import 'package:elearning/global.dart';
@@ -76,8 +77,8 @@ class SignInController {
         toastInfo("username and password do not match");
       } else if (e.code == "wrong-password") {
         toastInfo("Your entered a wrong pawword");
-      } else if (e.code == "network-request-failed"){
-         toastInfo("No internet connection");
+      } else if (e.code == "network-request-failed") {
+        toastInfo("No internet connection");
       }
       print(e.code);
     } catch (e) {
@@ -88,27 +89,30 @@ class SignInController {
     ref.read(appLoaderProvider.notifier).setLoaderValue(false);
   }
 
-  void asyncPostAllData(LoginRequestEntity loginRequestEntity) {
+  void asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
     //saving data we must talk to server
-
-    //save data in local storage (use shared_preferences)
-    try {
-      // var navigator = Navigator.of(ref.context);
-      Global.storageService
-          .setString(AppConstants.STORAGE_USER_PROFILE_KEY, jsonEncode({
-            'name':"Tee", 'email':'a@mailinator.com','age':27
-          }));
-      Global.storageService
-          .setString(AppConstants.STORAGE_USER_TOKEN_KEY, "123456");
-      //redirect to another page
-      navKey.currentState?.pushNamedAndRemoveUntil("application",(route)=>false);
-      
-    } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
+    var result = await SignInRepo.login(params: loginRequestEntity);
+    if (result.code == 200) {
+      //save data in local storage (use shared_preferences)
+      try {
+        // var navigator = Navigator.of(ref.context);
+        Global.storageService.setString(
+            AppConstants.STORAGE_USER_PROFILE_KEY,
+            jsonEncode(result.data));
+        Global.storageService
+            .setString(AppConstants.STORAGE_USER_TOKEN_KEY,result.data!.access_token!);
+        //redirect to another page
+        navKey.currentState
+            ?.pushNamedAndRemoveUntil("application", (route) => false);
+      } catch (e) {
+        if (kDebugMode) {
+          print(e.toString());
+        }
       }
     }
-
-    //redirect to new page
+    //redirect to new page if saving data was wrong 
+    else{
+      toastInfo("login error");
+    }
   }
 }

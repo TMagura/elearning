@@ -18,6 +18,11 @@ class StorageService{
     return  _pref.getString(key)??"";
   }
 
+//storing our token in shared preferences.
+  String getUserToken(){
+   return _pref.getString(AppConstants.STORAGE_USER_TOKEN_KEY)??"";
+  }
+
   Future<bool>setBool(String key , bool value) async {
     return await _pref.setBool(key, value);
   }
@@ -36,4 +41,9 @@ class StorageService{
     var userProfile = UserProfile.fromJson(profileJson);
     return userProfile;
   }
+  
+  
+
+
+
 }
