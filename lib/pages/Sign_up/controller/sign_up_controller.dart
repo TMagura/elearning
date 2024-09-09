@@ -61,6 +61,8 @@ if (kDebugMode) {
 if (credential.user!=null) {
   await credential.user?.sendEmailVerification();
   await credential.user?.updateDisplayName(name);
+  String photoURL = "uploads/default.png";
+  await credential.user?.updatePhotoURL(photoURL);
   //get server photo url
   //set user photo url
   toastInfo("An email was sent to your email. kindly verify");

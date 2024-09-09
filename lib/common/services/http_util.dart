@@ -65,7 +65,7 @@ class HttpUtil {
       queryParameters: queryParameters,
       options: requestOptions,
     );
-    print("hit response");
+    print(response.data);
     return response.data;
   }
 }

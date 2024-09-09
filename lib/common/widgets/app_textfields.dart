@@ -36,6 +36,7 @@ Widget appTextField({
                 hintTexts: hintText,
                 controller: controller,
                 func: func,
+                obscureText: obscureText
                 ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:elearning/common/utils/app_colors.dart';
+import 'package:elearning/common/utils/constants.dart';
 import 'package:elearning/common/utils/image_res.dart';
 import 'package:elearning/common/widgets/app_shadow.dart';
 import 'package:elearning/common/widgets/image_widgets.dart';
@@ -92,7 +93,8 @@ class UserName extends StatelessWidget {
   }
 }
 
-AppBar homeAppBar() {
+AppBar homeAppBar(WidgetRef ref ) {
+  var profileState = ref.watch(homeUserProfileProvider);
   return AppBar(
     title: Container(
       margin: const EdgeInsets.only(left: 7, right: 7),
@@ -100,9 +102,16 @@ AppBar homeAppBar() {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           appImage(imagePath: ImageRes.menu),
-          GestureDetector(
-            child: const AppBoxDecorationImage(),
-          )
+          profileState.when(
+          
+            data: (data)=>GestureDetector(
+              
+            child: AppBoxDecorationImage(imagePath: "${AppConstants.SERVER_API_URL}${data.avatar}",),
+          ),
+            error:(err,stack)=>appImage(imagePath: ImageRes.profile),
+            loading:()=>Container() ,
+            ),
+          
         ],
       ),
     ),
