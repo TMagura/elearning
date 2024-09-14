@@ -93,7 +93,7 @@ class UserName extends StatelessWidget {
   }
 }
 
-AppBar homeAppBar(WidgetRef ref ) {
+AppBar homeAppBar(WidgetRef ref) {
   var profileState = ref.watch(homeUserProfileProvider);
   return AppBar(
     title: Container(
@@ -103,15 +103,14 @@ AppBar homeAppBar(WidgetRef ref ) {
         children: [
           appImage(imagePath: ImageRes.menu),
           profileState.when(
-          
-            data: (data)=>GestureDetector(
-              
-            child: AppBoxDecorationImage(imagePath: "${AppConstants.SERVER_API_URL}${data.avatar}",),
-          ),
-            error:(err,stack)=>appImage(imagePath: ImageRes.profile),
-            loading:()=>Container() ,
+            data: (data) => GestureDetector(
+              child: AppBoxDecorationImage(
+                imagePath: "${AppConstants.SERVER_API_URL}${data.avatar}",
+              ),
             ),
-          
+            error: (err, stack) => appImage(imagePath: ImageRes.profile),
+            loading: () => Container(),
+          ),
         ],
       ),
     ),
@@ -189,20 +188,39 @@ class HomeMenuBar extends StatelessWidget {
 }
 
 class CourseItemGrid extends StatelessWidget {
-  const CourseItemGrid({super.key});
+  final WidgetRef ref;
+  const CourseItemGrid({super.key, required this.ref});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: const ScrollPhysics(),
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-            itemCount: 6, //never forget to put itemcount the app will crush with no error log
-        itemBuilder: (context, int index) {
-          return appImage(imagePath: ImageRes.defautImg);
-        },
+    final courseState = ref.watch(homeCourseListProvider);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal:0),
+      child: courseState.when(
+        data: ((data) => GridView.builder(
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 20,
+                childAspectRatio: 1.6,
+              ),
+              itemCount: data
+                  ?.length, //never forget to put itemcount the app will crush with no error log
+              itemBuilder: (context, int index) {
+                return AppBoxDecorationImage(
+                  imagePath:
+                      "${AppConstants.IMAGE_UPLOADS_PATH}${data![index].thumbnail!}",
+                  fit: BoxFit.fitWidth,
+                  courseItem: data[index],
+                );
+              },
+            )),
+        error: ((error, stackTrace) => Center(child: Text("$stackTrace"))),
+        loading: () => const Center(
+          child: Text('loading'),
+        ),
       ),
     );
   }

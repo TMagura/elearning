@@ -28,37 +28,42 @@ class _HomeState extends ConsumerState<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: homeAppBar(ref),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              const HelloText(),
-              const UserName(),
-              const SizedBox(
-                height: 20,
-              ),
-              searchBar(),
-              const SizedBox(
-                height: 20,
-              ),
-              HomeBanner(ref: ref, controller: _controller),
-              const SizedBox(
-                height: 20,
-              ),
-              const HomeMenuBar(),
-              const SizedBox(
-                height: 20,
-              ),
-              const CourseItemGrid(),
-            ],
+      body: RefreshIndicator(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                const HelloText(),
+                const UserName(),
+                const SizedBox(
+                  height: 20,
+                ),
+                searchBar(),
+                const SizedBox(
+                  height: 20,
+                ),
+                HomeBanner(ref: ref, controller: _controller),
+                const SizedBox(
+                  height: 20,
+                ),
+                const HomeMenuBar(),
+                const SizedBox(
+                  height: 20,
+                ),
+                CourseItemGrid(ref:ref),
+              ],
+            ),
           ),
         ),
+        onRefresh: (){
+          return ref.refresh(homeCourseListProvider.notifier).fetchCourseList();
+        },
       ),
     );
   }

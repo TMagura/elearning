@@ -1,5 +1,7 @@
+import 'package:elearning/common/model/course_entities.dart';
 import 'package:elearning/common/utils/app_colors.dart';
 import 'package:elearning/common/utils/image_res.dart';
+import 'package:elearning/common/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
 
 BoxDecoration appBoxShadow({
@@ -64,11 +66,16 @@ class AppBoxDecorationImage extends StatelessWidget {
   final double width;
   final double height;
   final String imagePath;
-  const AppBoxDecorationImage(
-      {super.key,
-      this.width = 40,
-      this.height = 40,
-      this.imagePath = ImageRes.profile});
+  final BoxFit fit;
+  final CourseItem? courseItem;
+  const AppBoxDecorationImage({
+    super.key,
+    this.width = 40,
+    this.height = 40,
+    this.imagePath = ImageRes.profile,
+    this.fit = BoxFit.fitHeight,
+    this.courseItem,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +85,21 @@ class AppBoxDecorationImage extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         image: DecorationImage(
-          fit: BoxFit.fitHeight,
+          fit: fit,
           image: NetworkImage(imagePath),
         ),
       ),
+      child: courseItem == null
+          ? Container()
+          : Column(
+              children: [
+                Container(
+                  child: FadeText(
+                    text: courseItem!.name!,
+                  ),
+                )
+              ],
+            ),
     );
   }
 }
