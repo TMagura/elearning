@@ -68,6 +68,7 @@ class AppBoxDecorationImage extends StatelessWidget {
   final String imagePath;
   final BoxFit fit;
   final CourseItem? courseItem;
+  final Function()? func;
   const AppBoxDecorationImage({
     super.key,
     this.width = 40,
@@ -75,31 +76,44 @@ class AppBoxDecorationImage extends StatelessWidget {
     this.imagePath = ImageRes.profile,
     this.fit = BoxFit.fitHeight,
     this.courseItem,
+    this.func,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        image: DecorationImage(
-          fit: fit,
-          image: NetworkImage(imagePath),
+    return GestureDetector(
+      onTap: func,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          image: DecorationImage(
+            fit: fit,
+            image: NetworkImage(imagePath),
+          ),
         ),
-      ),
-      child: courseItem == null
-          ? Container()
-          : Column(
-              children: [
-                Container(
-                  child: FadeText(
-                    text: courseItem!.name!,
+        child: courseItem == null
+            ? Container()
+            : Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 20, ),
+                    child: FadeText(
+                      text: courseItem!.name!,
+                    ),
                   ),
-                )
-              ],
-            ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20, bottom: 40),
+                    child: FadeText(
+                      text: "${courseItem!.lesson_num!} Lessons",
+                    ),
+                  ),
+                ],
+              ),
+      ),
     );
   }
 }

@@ -50,11 +50,14 @@ class Text12Normal extends StatelessWidget {
   final String text;
   final Color color;
   final FontWeight fontWeight;
+  final TextAlign textAlign;
   const Text12Normal(
       {super.key,
       this.text = "",
       this.color = AppColors.primaryText,
-      this.fontWeight = FontWeight.normal});
+      this.fontWeight = FontWeight.normal,
+      this.textAlign =TextAlign.start,
+      });
 
   @override
   Widget build(BuildContext context) {

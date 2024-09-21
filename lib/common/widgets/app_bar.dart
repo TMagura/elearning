@@ -14,3 +14,10 @@ AppBar buildAppbar({String title=""}) {
     title: Text16Normal(text: title, color: AppColors.primaryText),
   );
 }
+
+
+AppBar buildGlobalAppbar({String title=""}) {
+  return AppBar(
+    title: Text16Normal(text: title, color: AppColors.primaryText),
+  );
+}

@@ -1,4 +1,5 @@
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:elearning/common/routes/app_routes_names.dart';
 import 'package:elearning/common/utils/app_colors.dart';
 import 'package:elearning/common/utils/constants.dart';
 import 'package:elearning/common/utils/image_res.dart';
@@ -101,14 +102,14 @@ AppBar homeAppBar(WidgetRef ref) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          appImage(imagePath: ImageRes.menu),
+          const AppImage(imagePath: ImageRes.menu),
           profileState.when(
             data: (data) => GestureDetector(
               child: AppBoxDecorationImage(
                 imagePath: "${AppConstants.SERVER_API_URL}${data.avatar}",
               ),
             ),
-            error: (err, stack) => appImage(imagePath: ImageRes.profile),
+            error: (err, stack) => const AppImage(imagePath: ImageRes.profile),
             loading: () => Container(),
           ),
         ],
@@ -195,7 +196,7 @@ class CourseItemGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final courseState = ref.watch(homeCourseListProvider);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal:0),
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 0),
       child: courseState.when(
         data: ((data) => GridView.builder(
               shrinkWrap: true,
@@ -214,6 +215,11 @@ class CourseItemGrid extends StatelessWidget {
                       "${AppConstants.IMAGE_UPLOADS_PATH}${data![index].thumbnail!}",
                   fit: BoxFit.fitWidth,
                   courseItem: data[index],
+                  func: () {
+                    Navigator.of(context).pushNamed(AppRoutesNames.COURSE_DETAIL,arguments: {
+                      "id": data[index].id!,
+                    });
+                  },
                 );
               },
             )),

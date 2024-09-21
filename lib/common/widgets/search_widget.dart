@@ -20,7 +20,7 @@ Widget searchBar() {
             //search icon
             Container(
               margin: EdgeInsets.only(left: 17),
-              child: appImage(imagePath: ImageRes.searchIcon),
+              child: const AppImage(imagePath: ImageRes.searchIcon),
             ),
             //search container where to type
             Container(
@@ -39,7 +39,7 @@ Widget searchBar() {
           padding: EdgeInsets.all(5),
           width: 40,
           height: 40,
-          child: appImage(imagePath: ImageRes.searchButton),
+          child: const AppImage(imagePath: ImageRes.searchButton),
           decoration: appBoxShadow(
             border: Border.all(color: AppColors.primaryElement),
           ),
