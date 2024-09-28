@@ -70,6 +70,30 @@ class Text12Normal extends StatelessWidget {
   }
 }
 
+class Text13Normal extends StatelessWidget {
+  final String text;
+  final Color color;
+  final FontWeight fontWeight;
+  final TextAlign textAlign;
+  const Text13Normal(
+      {super.key,
+      this.text = "",
+      this.color = AppColors.primaryText,
+      this.fontWeight = FontWeight.normal,
+      this.textAlign =TextAlign.start,
+      });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style:
+          TextStyle(color: color, fontSize: 13, fontWeight: fontWeight),
+    );
+  }
+}
+
 //faded text 
 class FadeText extends StatelessWidget {
   final String text;

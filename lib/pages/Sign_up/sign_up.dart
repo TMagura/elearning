@@ -102,7 +102,7 @@ late SignUpController _controller;
                 ),
                 //App register button
                 Center(
-                  child: appButton(
+                  child: AppButton(
                       buttonName: "Register", 
                       isLogin: true, 
                       context: context,

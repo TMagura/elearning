@@ -4,18 +4,27 @@ import 'package:elearning/common/widgets/text_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget appButton({
-  BuildContext? context,
-  String buttonName = "Login", 
-  bool isLogin = true,
-  void Function()? func,
-  }) {
-  return GestureDetector(
+class AppButton extends StatelessWidget {
+  final BuildContext? context;
+  final String buttonName; 
+  final bool isLogin;
+  final void Function()? func;
+
+  const AppButton({super.key,
+  this.context,
+  this.buttonName = "Login", 
+  this.isLogin = true,
+  this.func, 
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
     onTap: () {
       if(func==null){
         print("this handler is null");
       }else{
-        func();
+        func;
       };
     },
     child: Container(
@@ -34,4 +43,5 @@ Widget appButton({
       ),
     ),
   );
+  }
 }

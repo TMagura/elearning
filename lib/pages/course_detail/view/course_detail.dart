@@ -1,5 +1,5 @@
 import 'package:elearning/common/widgets/app_bar.dart';
-import 'package:elearning/pages/course_detail/controller/course_detail_controller.dart';
+import 'package:elearning/pages/course_detail/controller/course_controller.dart';
 import 'package:elearning/pages/course_detail/view/widget/course_detail_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,9 +46,12 @@ class _CourseDetailState extends ConsumerState<CourseDetail> {
                       CourseDetailIconText(
                         courseItem: data,
                       ), //ratings and followings
-                      CourseDetailDescription(
+                      CourseDetailDescription(//Course description
                         courseItem: data,
-                      ),//Course description
+                      ),
+                      const CourseDetailGoBuyButton(),
+                      CourseDetailIncludes(courseItem: data),
+                      LessonInfo(),
                     ],
                   ),
               ),
