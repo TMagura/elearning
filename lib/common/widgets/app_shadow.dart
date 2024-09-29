@@ -96,11 +96,13 @@ class AppBoxDecorationImage extends StatelessWidget {
         child: courseItem == null
             ? Container()
             : Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 20, ),
+                    margin: EdgeInsets.only(
+                      left: 20,
+                    ),
                     child: FadeText(
                       text: courseItem!.name!,
                     ),
@@ -116,4 +118,10 @@ class AppBoxDecorationImage extends StatelessWidget {
       ),
     );
   }
+}
+
+BoxDecoration networkImageDecoration({required String imagePath}) {
+  return BoxDecoration(
+      image: DecorationImage(
+          image: NetworkImage(imagePath)));
 }

@@ -41,6 +41,7 @@ dependencies:
   fluttertoast: 8.2.5
   riverpod_generator: 2.3.11
   shared_preferences: 2.2.1
+  video_player: 2.2.11
 
 dev_dependencies:
   flutter_lints: ^2.0.0

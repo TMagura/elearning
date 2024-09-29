@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 
 
 class LessonRequestEntity {
@@ -107,5 +108,35 @@ class LessonVideoItem {
     "thumbnail": thumbnail,
   };
 
+}
+
+//for videos
+class LessonVideo {
+  final List<LessonVideoItem> lessonItem;
+  final Future<void>? initializeVideoPlayer; 
+  final bool isPlay;
+  final String? url;
+
+  LessonVideo( {
+    this.lessonItem = const <LessonVideoItem>[],
+    this.initializeVideoPlayer,
+    this.isPlay = false,
+    this.url="",
+  });
+  
+
+  LessonVideo copyWith({
+    List<LessonVideoItem>? lessonItem,
+    Future<void>? initializeVideoPlayer,
+    bool? isPlay,
+    String? url
+  }) {
+    return LessonVideo(
+      lessonItem: lessonItem ?? this.lessonItem,
+      initializeVideoPlayer: initializeVideoPlayer ?? this.initializeVideoPlayer,
+      isPlay: isPlay ?? this.isPlay,
+      url: url
+    );
+  }
 }
 

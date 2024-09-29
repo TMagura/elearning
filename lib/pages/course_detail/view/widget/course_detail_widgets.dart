@@ -1,4 +1,5 @@
 import 'package:elearning/common/model/course_entities.dart';
+import 'package:elearning/common/model/lesson_entities.dart';
 import 'package:elearning/common/utils/app_colors.dart';
 import 'package:elearning/common/utils/constants.dart';
 import 'package:elearning/common/utils/image_res.dart';
@@ -6,7 +7,9 @@ import 'package:elearning/common/widgets/app_shadow.dart';
 import 'package:elearning/common/widgets/button_widgets.dart';
 import 'package:elearning/common/widgets/image_widgets.dart';
 import 'package:elearning/common/widgets/text_widgets.dart';
+import 'package:elearning/pages/lesson_detail/controller/lesson_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CourseDetailThumbnail extends StatelessWidget {
   final CourseItem courseItem;
@@ -202,55 +205,86 @@ class CourseInfo extends StatelessWidget {
 }
 
 class LessonInfo extends StatelessWidget {
-  const LessonInfo({super.key});
+  final List<LessonItem> lessonData;
+  final WidgetRef ref;
+  const LessonInfo({super.key, required this.lessonData, required this.ref});
 
   @override
   Widget build(BuildContext context) {
+    // print("lessons i have are ${lessonData.length}");
     return Container(
       margin: const EdgeInsets.only(top: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text16Normal(
-            text: "Lesson List",
-            fontWeight: FontWeight.bold,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: 325,
-            height: 80,
-            decoration: appBoxShadow(
-              radius: 10,
-              sR: 2,
-              bR: 3,
-              color: Color.fromRGBO(255, 255, 255, 1),
-            ),
-            child: InkWell(
-              onTap: () {},
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const AppBoxDecorationImage(
-                    fit: BoxFit.fill,
-                    width: 60,
-                    height: 60,
-                    imagePath: "${AppConstants.IMAGE_UPLOADS_PATH}default.png",
-                  ),
-                  SizedBox(width: 10,),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text13Normal(text:"UX design by Teebag", color: AppColors.primaryText,),
-                      Text12Normal(text:"UX design by Teebag", color: AppColors.primarySecondaryElementText,),
-                    ],
-                  ), 
-                  Expanded(child: Container(),),
-                  AppImage(width: 30, height: 24, imagePath: ImageRes.arrowRight,),               
-                ],
-              ),
-            ),
+          lessonData.isNotEmpty
+          ? const Text16Normal(text: "Lesson List", fontWeight: FontWeight.bold)
+          : const Text16Normal(text: "Lesson List is Empty", fontWeight: FontWeight.bold),
+          const SizedBox(height: 10),
+          SingleChildScrollView(
+            child: ListView.builder(
+              shrinkWrap: true,
+                itemCount: lessonData.length,
+                itemBuilder: (_, index) {
+                  return Container(
+                    margin: EdgeInsets.only(top:10),
+                    width: 325,
+                    height: 80,
+                    decoration: appBoxShadow(
+                      radius: 10,
+                      sR: 2,
+                      bR: 3,
+                      color: const Color.fromRGBO(255, 255, 255, 1),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        ref.watch(lessonDetailControllerProvider(index: lessonData[index].id!));
+                        Navigator.of(context).pushNamed("lesson_detail",arguments: {
+                          "id":lessonData[index].id!
+                        });
+                      },
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          AppBoxDecorationImage(
+                            fit: BoxFit.fill,
+                            width: 60,
+                            height: 60,
+                            imagePath:
+                                "${AppConstants.IMAGE_UPLOADS_PATH}${lessonData[index].thumbnail}",
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text13Normal(
+                                  text: "${lessonData[index].name}",
+                                  color: AppColors.primaryText,
+                                ),
+                                Expanded(
+                                  child: Text12Normal(
+                                    text: "${lessonData[index].description}",
+                                    color: AppColors.primarySecondaryElementText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                         
+                          const AppImage(
+                              width: 30,
+                              height: 24,
+                              imagePath: ImageRes.arrowRight),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
           ),
         ],
       ),

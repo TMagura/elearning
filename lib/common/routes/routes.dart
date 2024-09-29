@@ -5,6 +5,7 @@ import 'package:elearning/pages/Sign_up/sign_up.dart';
 import 'package:elearning/pages/application/application.dart';
 import 'package:elearning/pages/course_detail/view/course_detail.dart';
 import 'package:elearning/pages/home/view/home.dart';
+import 'package:elearning/pages/lesson_detail/view/lesson_detail.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,7 @@ class AppPages {
       RouteEntity(path: AppRoutesNames.APPLICATION, page: const Application()),
       RouteEntity(path: AppRoutesNames.HOME, page: const Home()),
       RouteEntity(path: AppRoutesNames.COURSE_DETAIL, page: const CourseDetail()),
+      RouteEntity(path: AppRoutesNames.LESSON_DETAIL, page: const LessonDetail()),
     ];
   }
 

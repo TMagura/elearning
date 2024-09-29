@@ -27,42 +27,65 @@ class _CourseDetailState extends ConsumerState<CourseDetail> {
 
   @override
   Widget build(BuildContext context) {
-    var stateData =
+    var courseData =
         ref.watch(courseDetailControllerProvider(index: args.toInt()));
+    var lessonData =
+        ref.watch(courseLessonListControllerProvider(index: args.toInt()));
     return Scaffold(
       appBar: buildGlobalAppbar(title: "Course Title"),
-      body: stateData.when(
-          data: (data) => data == null
-              ? const SizedBox()
-              : Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CourseDetailThumbnail(
-                        courseItem: data,
-                      ), //thumbnail picture
-                      CourseDetailIconText(
-                        courseItem: data,
-                      ), //ratings and followings
-                      CourseDetailDescription(//Course description
-                        courseItem: data,
+      body: Padding(
+        padding: const EdgeInsets.only(left: 25, right: 25),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              courseData.when(
+                data: (data) => data == null
+                    ? const SizedBox()
+                    : Column(
+                        children: [
+                          CourseDetailThumbnail(
+                            courseItem: data,
+                          ), //thumbnail picture
+                          CourseDetailIconText(
+                            courseItem: data,
+                          ), //ratings and followings
+                          CourseDetailDescription(
+                            //Course description
+                            courseItem: data,
+                          ),
+                          const CourseDetailGoBuyButton(),
+                          CourseDetailIncludes(courseItem: data),
+                        ],
                       ),
-                      const CourseDetailGoBuyButton(),
-                      CourseDetailIncludes(courseItem: data),
-                      LessonInfo(),
-                    ],
-                  ),
+                error: (error, StackTrace) {
+                  return const Text("There is an error while loading");
+                },
+                loading: () {
+                  return Container(
+                    height: 500,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
               ),
-          error: (error, StackTrace) {
-            return const Text("There is an error while loading");
-          },
-          loading: () {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
+              lessonData.when(
+                data: (data) => data == null ? const SizedBox() : LessonInfo(lessonData:data,ref:ref),
+                error: (error, StackTrace) {
+                  return const Text("There is an error while loading");
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
